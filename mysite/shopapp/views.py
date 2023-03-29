@@ -18,7 +18,7 @@ def shop_index(request: HttpRequest):
         "time_running": default_timer(),
         "products": products,
     }
-    return render(request, 'shopapp/shop_index.html', context=context)
+    return render(request, 'shopapp/shop-index.html', context=context)
 
 
 def groups_list(request: HttpRequest):
