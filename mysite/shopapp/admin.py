@@ -1,15 +1,53 @@
 from django.contrib import admin
+from django.db.models import QuerySet
+from django.http import HttpRequest
 
 from .models import Product, Order
+from .admin_mixins import ExportAsCSVMixin
+
+
+class OrderInline(admin.TabularInline):
+    model = Product.orders.through
+
+
+@admin.action(description="Archive products")
+def marc_archived(modeladmin: admin.ModelAdmin, request: HttpRequest, queryset: QuerySet):
+    queryset.update(archived=True)
+
+
+@admin.action(description="Unarchive products")
+def marc_unarchived(modeladmin: admin.ModelAdmin, request: HttpRequest, queryset: QuerySet):
+    queryset.update(archived=False)
 
 
 @admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
-    # list_display = "pk", "name", "description", "price", "discount"
-    list_display = "pk", "name", "description_short", "price", "discount"
+class ProductAdmin(admin.ModelAdmin, ExportAsCSVMixin):
+    actions = [
+        marc_archived,
+        marc_unarchived,
+        "export_csv",
+    ]
+    inlines = [
+        OrderInline,
+    ]
+    list_display = "pk", "name", "description_short", "price", "discount", "archived"
     list_display_links = "pk", "name"
     ordering = "-name", "pk"
     search_fields = "name", "description"
+    fieldsets = [
+        (None, {
+            "fields": ("name", "description"),
+        }),
+        ("Price options", {
+            "fields": ("price", "discount"),
+            "classes": ("wide", "collapse",),
+        }),
+        ("Extra options", {
+            "fields": ("archived",),
+            "classes": ("collapse",),
+            "description": "Extra options. Field 'archived' is for soft delete",
+        })
+    ]
 
     def description_short(self, obj: Product) -> str:
         if len(obj.description) < 48:
@@ -20,8 +58,9 @@ class ProductAdmin(admin.ModelAdmin):
 
 # class ProductInline(admin.TabularInline):
 
-    class ProductInline(admin.StackedInline):
-        model = Order.products.through
+
+class ProductInline(admin.StackedInline):
+    model = Order.products.through
 
 
 @admin.register(Order)
