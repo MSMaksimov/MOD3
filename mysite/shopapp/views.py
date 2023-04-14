@@ -2,8 +2,9 @@ from timeit import default_timer
 
 from django.contrib.auth.models import Group
 from django.http import HttpResponse, HttpRequest
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.views import View
+from django.views.generic import TemplateView, ListView, DeleteView
 
 from .models import Product, Order
 
@@ -40,11 +41,23 @@ class GroupsListView(View):
         return redirect(request.path)
 
 
-def products_list(request: HttpRequest):
-    context = {
-        "products": Product.objects.all(),
-    }
-    return render(request, 'shopapp/products-list.html', context=context)
+class ProductDetailsView(DeleteView):
+    template_name = "shopapp/product-details.html"
+    model = Product
+    context_object_name = "product"
+
+
+class ProductsListView(ListView):
+    template_name = "shopapp/products-list.html"
+    model = Product
+    context_object_name = "products"
+
+
+# def products_list(request: HttpRequest):
+#     context = {
+#         "products": Product.objects.all(),
+#     }
+#     return render(request, 'shopapp/products-list.html', context=context)
 
 
 def create_product(request: HttpRequest) -> HttpResponse:
@@ -63,8 +76,15 @@ def create_product(request: HttpRequest) -> HttpResponse:
     return render(request, "shopapp/create-product.html", context=context)
 
 
-def orders_list(request: HttpRequest):
-    context = {
-        "orders": Order.objects.select_related("user").prefetch_related("products").all(),
-    }
-    return render(request, 'shopapp/orders-list.html', context=context)
+class OrdersListView(ListView):
+    queryset = (Order.objects
+                .select_related("user")
+                .prefetch_related("products")
+                )
+
+
+class OrderDetailView(DeleteView):
+    queryset = (Order.objects
+                .select_related("user")
+                .prefetch_related("products")
+                )
