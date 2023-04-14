@@ -53,13 +53,6 @@ class ProductsListView(ListView):
     context_object_name = "products"
 
 
-# def products_list(request: HttpRequest):
-#     context = {
-#         "products": Product.objects.all(),
-#     }
-#     return render(request, 'shopapp/products-list.html', context=context)
-
-
 def create_product(request: HttpRequest) -> HttpResponse:
     if request.method == "POST":
         form = ProductForm(request.POST)
@@ -77,14 +70,16 @@ def create_product(request: HttpRequest) -> HttpResponse:
 
 
 class OrdersListView(ListView):
-    queryset = (Order.objects
-                .select_related("user")
-                .prefetch_related("products")
-                )
+    queryset = (
+        Order.objects
+        .select_related("user")
+        .prefetch_related("products")
+    )
 
 
 class OrderDetailView(DeleteView):
-    queryset = (Order.objects
-                .select_related("user")
-                .prefetch_related("products")
-                )
+    queryset = (
+        Order.objects
+        .select_related("user")
+        .prefetch_related("products")
+    )
