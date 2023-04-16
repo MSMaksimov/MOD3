@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView
+from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from .models import Product, Order
 
@@ -60,6 +60,10 @@ class ProductUpdateView(UpdateView):
         )
 
 
+class ProductDeleteView(DeleteView):
+    model = Product
+    success_url = reverse_lazy("shopapp:products_list")
+
 class ProductsListView(ListView):
     template_name = "shopapp/products-list.html"
     model = Product
@@ -70,16 +74,6 @@ class ProductCreateView(CreateView):
     model = Product
     fields = "name", "price", "description", "discount"
     success_url = reverse_lazy("shopapp:products_list")
-
-
-# def create_product(request: HttpRequest) -> HttpResponse:
-#     if request.method == "POST":
-#         form = ProductForm(request.POST)
-#         if form.is_valid():
-#             # Product.objects.create(**form.cleaned_data)
-#             form.save()
-#             url = reverse("shopapp:products_list")
-#             return redirect(url)
 
 
 class OrdersListView(ListView):
