@@ -6,9 +6,9 @@ from django.contrib.auth import authenticate, login
 def login_view(request: HttpRequest):
     if request.method == "GET":
         if request.user.is_authenticated:
-            return redirect('/amin/')
+            return redirect('/admin/')
 
-        return render(request, 'myauth/login.html')
+        return render(request, 'myauth/login.html/')
 
     username = request.POST["username"]
     password = request.POST["password"]
@@ -17,4 +17,5 @@ def login_view(request: HttpRequest):
     if user is not None:
         login(request, user)
         return redirect("/admin/")
+
     return render(request, "myauth/login.html", {"error": "Invalid login credentials"})
