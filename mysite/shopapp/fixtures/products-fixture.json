@@ -1,0 +1,98 @@
+[
+  {
+    "model": "shopapp.product",
+    "pk": 1,
+    "fields": {
+      "name": "Laptop",
+      "description": "Some description",
+      "price": "1999.00",
+      "discount": 0,
+      "created_at": "2023-03-23T08:02:12.760Z",
+      "archived": false
+    }
+  },
+  {
+    "model": "shopapp.product",
+    "pk": 3,
+    "fields": {
+      "name": "Smartphone",
+      "description": "",
+      "price": "987.00",
+      "discount": 25,
+      "created_at": "2023-03-23T08:02:12.760Z",
+      "archived": false
+    }
+  },
+  {
+    "model": "shopapp.product",
+    "pk": 4,
+    "fields": {
+      "name": "Tablet",
+      "description": "Great tablet",
+      "price": "1234.00",
+      "discount": 0,
+      "created_at": "2023-04-10T17:46:29.924Z",
+      "archived": false
+    }
+  },
+  {
+    "model": "shopapp.product",
+    "pk": 5,
+    "fields": {
+      "name": "Phone2",
+      "description": "Phone 2 is better then phone",
+      "price": "1235.00",
+      "discount": 0,
+      "created_at": "2023-04-11T08:32:57.238Z",
+      "archived": false
+    }
+  },
+  {
+    "model": "shopapp.product",
+    "pk": 6,
+    "fields": {
+      "name": "Phone 3",
+      "description": "Phone 3",
+      "price": "999.42",
+      "discount": 12,
+      "created_at": "2023-04-11T09:53:38.052Z",
+      "archived": false
+    }
+  },
+  {
+    "model": "shopapp.product",
+    "pk": 7,
+    "fields": {
+      "name": "Tablet 2",
+      "description": "a new Tablet",
+      "price": "1500.00",
+      "discount": 15,
+      "created_at": "2023-04-11T09:56:30.746Z",
+      "archived": false
+    }
+  },
+  {
+    "model": "shopapp.product",
+    "pk": 8,
+    "fields": {
+      "name": "Phone",
+      "description": "a new phone",
+      "price": "1234.00",
+      "discount": 10,
+      "created_at": "2023-04-15T07:15:11.169Z",
+      "archived": false
+    }
+  },
+  {
+    "model": "shopapp.product",
+    "pk": 9,
+    "fields": {
+      "name": "Tablet888",
+      "description": "A good tablets",
+      "price": "12345.00",
+      "discount": 10,
+      "created_at": "2023-04-26T06:49:58.650Z",
+      "archived": false
+    }
+  }
+]
