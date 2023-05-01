@@ -1,7 +1,7 @@
 from timeit import default_timer
 
 from django.contrib.auth.models import Group
-from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
+from django.http import HttpResponse, HttpRequest, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
@@ -80,9 +80,9 @@ class ProductsListView(ListView):
 
 
 class ProductCreateView(CreateView):
-    # def test_func(self):
-    #     # return self.request.user.groups.filter(name="secret-group").exists()
-    #     return self.request.user.is_superuser
+    def test_func(self):
+        # return self.request.user.groups.filter(name="secret-group").exists()
+        return self.request.user.is_superuser
     model = Product
     fields = "name", "price", "description", "discount"
     success_url = reverse_lazy("shopapp:products_list")
@@ -108,3 +108,19 @@ class OrderDetailView(PermissionRequiredMixin, DetailView):
     queryset = (
         Order.objects.select_related("user").prefetch_related("products")
     )
+
+
+class ProductsDataExportView(View):
+    def get(self, request: HttpRequest) -> JsonResponse:
+        products = Product.objects.order_by("pk").all()
+        products_data = [
+            {
+                "pk": product.pk,
+                "name": product.name,
+                "price": product.price,
+                "description": product.description,
+                "archived": product.archived,
+            }
+            for product in products
+        ]
+        return JsonResponse({"products": products_data})
