@@ -1,5 +1,8 @@
 from string import ascii_letters
 from random import choices
+
+from django.conf import settings
+from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse, reverse_lazy
 
@@ -71,3 +74,28 @@ class ProductsListViewTestCase(TestCase):
             transform=lambda p: p.pk,
         )
         self.assertTemplateUsed(response, 'shopapp/products-list.html')
+
+
+class OrdersListViewTestCase(TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        cls.user = User.objects.create_user(username="test_user", password="qwerty")
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.user.delete()
+
+    def setUp(self) -> None:
+
+        self.client.force_login(self.user)
+
+    def test_orders_view(self):
+        response = self.client.get(reverse("shopapp:orders_list"))
+        self.assertContains(response, "Orders")
+
+    def test_orders_view_not_authenticated(self):
+        self.client.logout()
+        response = self.client.get(reverse("shopapp:orders_list"))
+        self.assertEqual(response.status_code, 302)
+        self.assertIn(str(settings.LOGIN_URL), response.url)
