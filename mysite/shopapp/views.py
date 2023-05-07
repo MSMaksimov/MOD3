@@ -51,7 +51,7 @@ class ProductDetailsView(DetailView):
 
 class ProductUpdateView(UpdateView):
     model = Product
-    fields = "name", "price", "description", "discount"
+    fields = "name", "price", "description", "discount", "preview"
     template_name_suffix = "_update_form"
 
     def get_success_url(self):
@@ -84,7 +84,7 @@ class ProductCreateView(CreateView):
         # return self.request.user.groups.filter(name="secret-group").exists()
         return self.request.user.is_superuser
     model = Product
-    fields = "name", "price", "description", "discount"
+    fields = "name", "price", "description", "discount", "preview"
     success_url = reverse_lazy("shopapp:products_list")
 
 
