@@ -8,9 +8,9 @@ from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 
-from .models import Product, Order
+from .models import Product, Order, ProductImage
 
-from .forms import ProductForm, GroupForm
+from .forms import ProductForm
 
 
 class ShopIndexView(View):
@@ -51,8 +51,18 @@ class ProductDetailsView(DetailView):
 
 class ProductUpdateView(UpdateView):
     model = Product
-    fields = "name", "price", "description", "discount", "preview"
+    form_class = ProductForm
+    # fields = "name", "price", "description", "discount", "preview"
     template_name_suffix = "_update_form"
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        for image in form.files.getlist("images"):
+            ProductImage.objects.create(
+                product=self.object,
+                image=image,
+            )
+        return response
 
     def get_success_url(self):
         return reverse(
@@ -62,7 +72,8 @@ class ProductUpdateView(UpdateView):
 
 
 class ProductDeleteView(DeleteView):
-    model = Product
+    # model = Product
+    queryset = Product.objects.prefetch_related("images")
     success_url = reverse_lazy("shopapp:products_list")
 
     def form_valid(self, form):
