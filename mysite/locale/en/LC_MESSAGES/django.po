@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-28 18:21+0500\n"
+"POT-Creation-Date: 2023-05-29 13:25+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,3 +36,36 @@ msgstr ""
 #: .\mysite\settings.py:133
 msgid "Russian"
 msgstr ""
+
+#: .\shopapp\templates\shopapp\products-list.html:6
+msgid "Products list"
+msgstr "Products list"
+
+#: .\shopapp\templates\shopapp\products-list.html:10
+msgid "Products"
+msgstr "Products"
+
+#: .\shopapp\templates\shopapp\products-list.html:16
+msgctxt "product name"
+msgid "Name"
+msgstr "Name"
+
+#: .\shopapp\templates\shopapp\products-list.html:17
+msgid "Price"
+msgstr "Price"
+
+#: .\shopapp\templates\shopapp\products-list.html:18
+msgid "No discount"
+msgstr "No discount"
+
+#: .\shopapp\templates\shopapp\products-list.html:19
+msgid "Discount"
+msgstr "Discount"
+
+#: .\shopapp\templates\shopapp\products-list.html:31
+msgid "No products yet"
+msgstr "No products yet"
+
+#: .\shopapp\templates\shopapp\products-list.html:36
+msgid "Create a new product"
+msgstr "Create a new product"
