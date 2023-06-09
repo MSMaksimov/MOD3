@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     "django_filters",
+    "drf_spectacular",
     
     'shopapp.apps.ShopappConfig',
     'myauth.apps.MyauthConfig',
@@ -162,5 +163,13 @@ REST_FRAMEWORK = {
     "PAGE_SIZE": 10,
     "DEFAULT_FILTER_BACKENDS": [
         "django_filters.rest_framework.DjangoFilterBackend",
-    ]
+    ],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "My Site Project API",
+    "DESCRIPTION": "My site with shop app and custom auth",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
 }
