@@ -160,7 +160,10 @@ class ProductCreateView(CreateView):
 
 class OrdersListView(LoginRequiredMixin, ListView):
     queryset = (
-        Order.objects.select_related("user").prefetch_related("products")
+        Order.objects
+        .select_related("user")
+        .prefetch_related("products")
+        .all()
     )
 
 

@@ -7,11 +7,11 @@
 {% block body %}
     <h1>Groups:</h1>
     <div>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Create</button>
-    </form>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Create</button>
+        </form>
     </div>
     <div>
         {% if not groups %}
@@ -21,14 +21,14 @@
                 {% for group in groups %}
                     <li>
                         <div>{{ group.name }}</div>
-                    <ul>
-                        {% for permission in group.permissions.all %}
-                            <li>{{ permission.name }}
-                            (<code>{{ permission.codename }}</code>)
-                            </li>
+                        <ul>
+                            {% for permission in group.permissions.all %}
+                                <li>{{ permission.name }}
+                                    (<code>{{ permission.codename }}</code>)
+                                </li>
 
-                        {% endfor %}
-                    </ul>
+                            {% endfor %}
+                        </ul>
                     </li>
 
                 {% endfor %}
