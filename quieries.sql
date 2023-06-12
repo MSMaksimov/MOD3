@@ -128,3 +128,8 @@ _products" ON ("shopapp_product"."id" = "shopapp_order_products"."product_id") W
 (0.000) SELECT ("shopapp_order_products"."order_id") AS "_prefetch_related_val_order_id", "shopapp_product"."id", "shopapp_product"."name", "shopapp_product"."description", "shopapp_pr
 oduct"."price", "shopapp_product"."discount", "shopapp_product"."created_at", "shopapp_product"."archived", "shopapp_product"."preview" FROM "shopapp_product" INNER JOIN "shopapp_order
 _products" ON ("shopapp_product"."id" = "shopapp_order_products"."product_id") WHERE "shopapp_order_products"."order_id" IN (1, 2, 3) ORDER BY "shopapp_product"."name" ASC, "shopapp_product"."price" ASC; args=(1, 2, 3); alias=default
+
+SELECT "shopapp_order"."id", "shopapp_order"."delivery_address", "shopapp_order"."promocode", "shopapp_order"."created_at", "shopapp_order"."user_id", "shopapp_order"."receipt"
+, CAST(SUM("shopapp_product"."price") AS NUMERIC) AS "total", COUNT("shopapp_order_products"."product_id") AS "products_count" FROM "shopapp_order" LEFT OUTER JOIN "shopapp_order_produ
+cts" ON ("shopapp_order"."id" = "shopapp_order_products"."order_id") LEFT OUTER JOIN "shopapp_product" ON ("shopapp_order_products"."product_id" = "shopapp_product"."id") GROUP BY "sho
+papp_order"."id", "shopapp_order"."delivery_address", "shopapp_order"."promocode", "shopapp_order"."created_at", "shopapp_order"."user_id", "shopapp_order"."receipt"; args=(); alias=default
