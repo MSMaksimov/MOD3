@@ -81,6 +81,7 @@ class ShopIndexView(View):
             "items": 2,
         }
         log.debug("Products for shop index: %s", products)
+        log.info("Rendering shop index")
         return render(request, 'shopapp/shop-index.html', context=context)
 
 
