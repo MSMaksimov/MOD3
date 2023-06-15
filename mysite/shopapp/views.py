@@ -5,6 +5,7 @@
 """
 
 import logging
+from logging.handlers import RotatingFileHandler
 
 from timeit import default_timer
 
