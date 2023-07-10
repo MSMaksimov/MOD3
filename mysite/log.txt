@@ -1,1 +1,4 @@
 2023-07-10 14:03:30,704 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2023-07-10 14:41:25,421 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2023-07-10 14:41:30,801 [WARNING] django.request: Not Found: /
+2023-07-10 14:45:51,584 [INFO] django.utils.autoreload: /mnt/c/Python/Django/HW/MOD3/mysite/mysite/settings.py changed, reloading.
